@@ -1,0 +1,72 @@
+\problemname{Chalmers Coin}
+The industrial engineering and management division at Chalmers have recently
+invented something they think will revolutionize money. They have invented a
+brand new cryptocurrency called the Chalmers Coin (CC)! To mine a block of CC
+you need to find a sufficiently small value of $\texttt{hash}(x \,.\, k)$ where
+$\,.\,$ is bit-concatenation, $x$ is a given $28$-bit number, $k$ is a $36$-bit
+number you can choose freely and $\texttt{hash}$ is the function defined below.
+A different way of writing the same thing would be $\texttt{hash}(2^{36} x +
+k)$.
+
+The industrial management students were confident they had the resources and the
+expertise to create a hash function better than SHA256. One of their genius
+ideas was to use a $64$-bit input and output to save storage space. The result
+of their extensive research, the hash function used in CC, is defined by the
+following python code.
+
+\begin{verbatim}
+def hash(x):
+    # int to list of bits
+    def tolist(x):
+        return [(x>>i)&1 for i in range(63, -1, -1)]
+
+    # list of bits to int
+    def toint(x):
+        return sum([x[63-i]<<i for i in range(0, 64)])
+
+    assert 0 <= x < 2**64
+    x = tolist(x)
+    for i in range(512):
+        y = 4*x[i%64] + 2*x[(i+2)%64] + x[(i+10)%64]
+        x[i%64] = [1,1,0,0,1,1,0,1][y]
+    x = toint(x)
+    for i in range(16):
+        x += toint(tolist(x)[::-1])
+        x ^= 3**40
+        if(x >= 2**64): x >>= 1
+    assert 0 <= x < 2**64
+    return x
+\end{verbatim}
+
+\noindent You want to get rich by mining this coin. The Chalmers Coin
+automatically changes its difficulty (how small the hash needs to be).
+Therefore, you want to write a program which finds a value of $k$ to make the
+hash as small as possible, the smaller the better.
+
+\section*{Input}
+Input consists of $10$ lines, each describing a block you want to mine. The
+$i$th line contains the integer $x_i$. All $x_i$ are sampled uniformly at random
+from $[0, 2^{28}-1]$.
+
+\section*{Output}
+Output $10$ integers $k_i$, one per line.
+
+\section*{Scoring}
+
+Your program will only be run on one test case (containing $10$ lines). The
+sample test case is not worth any points. Your final score is the sum of your
+score for each block, rounded to two decimal places. For each block, your score
+is $\max(2t_i, 30t_i-20)$ where $t_i = \frac{64-\log_2(h_i)}{64-\log_2(H_i)}$,
+$h_i$ is the hash you have obtained ($h_i = \texttt{hash}(2^{36} x_i + k_i)$)
+and $H_i$ is the optimal hash.
+
+TL;DR: You will get more points the smaller hashes you get.
+
+\section*{Explanation of sample}
+For the first block, the sample output gets the hash $h_1 = \texttt{hash}(2^{36}
+\cdot 111131462 + 50363195222) = \texttt{hash}(7636895967909863254) =
+15659998746091827$.  An optimal answer for the first block would have been
+$1090594820$, corresponding to the hash $H_1 = 602833507760528$.  This gives
+$t_1 = \frac{64-\log_2(h_1)}{64-\log_2(H_1)} \approx 0.68465$ and a score for
+the first block of approximately $\max(2 \cdot 0.68465, 30 \cdot 0.68465-20) =
+1.3693$.

@@ -1,0 +1,41 @@
+\problemname{Cookie Game}
+
+\noindent Gustav and Oskar found some cookies in
+\href{https://wiki.dtek.se/wiki/Basen}{the base}, so they put them in a line on
+the table and numbered them $1$ to $n$ from left to right.  Cookie number $i$
+takes $a_i$ bites to eat. Gustav and Oskar want to eat the cookies, but they
+couldn't agree on how to divide the cookies between themselves, so they decided
+to play a game. They will take turns playing a move. A move consists of either
+
+\begin{itemize}
+  \item taking a cookie from the table, or
+  \item taking a bite from a previously taken cookie
+\end{itemize}
+
+\noindent If Gustav or Oskar take a cookie, they must finish eating it before
+taking another one.  When there are no cookies left and one player has finished
+his last cookie, he has to wait while the other player finishes his.
+
+Oskar's strategy is to always take the leftmost cookie (lowest index) when he
+can take a new cookie.  Gustav makes the first move and wants to eat as many
+cookies as possible. How many cookies can he eat if he knows about Oskar's
+strategy and plays optimally?
+
+\section*{Input}
+The first line contains the integer $n$.  The second line contains the $n$ space
+separated integers $a_i$ ($1 \leq a_i$).
+
+\section*{Output}
+Output one integer, the maximum number of cookies Gustav can get.
+
+\section*{Scoring}
+
+\noindent
+\begin{tabular}{| l | l | l |}
+\hline
+Group & Points     & Constraints \\ \hline
+$1$   & $25$       & $n \leq 20, a_i \leq 20$ \\ \hline
+$2$   & $20$       & $n \leq 75, a_i \leq 75$ \\ \hline
+$3$   & $15$       & $n \leq 250, a_i \leq 10^9$ \\ \hline
+$4$   & $40$       & $n \leq 5000, a_i \leq 10^9$ \\ \hline
+\end{tabular}
