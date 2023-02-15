@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-USE_SCORING=0
+
 PPATH=$(realpath ..)
 . ../../../testdata_tools/gen.sh
 
@@ -7,8 +7,11 @@ use_solution loke.cpp
 
 compile gen.py
 
+samplegroup
 sample 1
 
+group full 100
+tc 1
 tc t01 gen
 tc t02 gen
 tc t03 gen

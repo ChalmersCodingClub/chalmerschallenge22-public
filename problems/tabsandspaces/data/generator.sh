@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-USE_SCORING=0
+
 . ../../../testdata_tools/gen.sh
 
 use_solution victor_py3.py
@@ -8,9 +8,13 @@ compile gen.py
 compile asdf.py
 compile gen_rand.py
 
+samplegroup
 sample 1
 sample 2
 
+group full 100
+tc 1
+tc 2
 tc t01 gen
 tc t02 gen
 tc t03 gen

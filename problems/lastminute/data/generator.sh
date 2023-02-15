@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
-USE_SCORING=0
+
 . ../../../testdata_tools/gen.sh
 
 use_solution julia.py
 
 compile gen.py
 
+samplegroup
 sample 1
 sample 2
 sample 3
 sample 4
 
+group full 100
+tc 1
+tc 2
+tc 3
+tc 4
 tc t01 gen A2Max=0 B2Max=0
 tc t02 gen A2Max=0 B2Max=0
 tc t03 gen A2Max=0 B2Max=0
