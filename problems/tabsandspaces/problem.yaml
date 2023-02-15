@@ -2,6 +2,8 @@ author: Victor Song
 source: Chalmers Challenge 2022
 rights_owner: Chalmers Challenge 2022
 license: cc by-sa
-type: pass-fail
+type: scoring
+grading:
+    show_test_data_groups: yes
 limits:
     time_multiplier: 4
